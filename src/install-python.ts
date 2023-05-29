@@ -5,6 +5,7 @@ import * as exec from '@actions/exec';
 import {ExecOptions} from '@actions/exec/lib/interfaces';
 import {IS_WINDOWS, IS_LINUX, isGhes} from './utils';
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 const TOKEN = core.getInput('token');
 const GHES_TOKEN = core.getInput('ghes_token');
 const AUTH = isGhes()
