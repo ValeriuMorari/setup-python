@@ -1,3 +1,34 @@
+# CONTI USAGE - CHANGES
+* NODE_TLS_REJECT_UNAUTHORIZED is set to '0' which makes TLS connections and HTTPS requests insecure by disabling certificate verification as issuer might not be identified behind proxy
+* Github requests are limited to 60 requests per hour. Hence authentication is required. Although we trigger actions from enterprise GIT which wanna download python from github.com, hence we need a user signed up within github.com, generate token and insert it within workflow yaml file. This will prevent possible rejection of python distribution download process due to limitation of github requests.
+* Example:
+
+```
+name: Build
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: [ Windows ]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.10
+      uses: uidq8132/setup-python@main
+      with:
+        python-version: "3.10"
+        ghes_token: GITHUB.COM_TOKEN
+```
+
 # setup-python
 
 [![Basic validation](https://github.com/actions/setup-python/actions/workflows/basic-validation.yml/badge.svg?branch=main)](https://github.com/actions/setup-python/actions/workflows/basic-validation.yml)
